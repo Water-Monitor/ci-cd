@@ -1,0 +1,21 @@
+kubectl delete services water-usage-service -n watermonitor
+kubectl delete deployments water-usage-service -n watermonitor
+kubectl apply -f https://raw.githubusercontent.com/Water-Monitor/ci-cd/master/deployments.yaml -n watermonitor
+kubectl expose deployment water-usage-service --type=LoadBalancer --name=water-usage-service -n watermonitor
+
+kubectl delete services user-service -n watermonitor
+kubectl delete deployments user-service -n watermonitor
+kubectl apply -f https://raw.githubusercontent.com/Water-Monitor/ci-cd/master/deployments.yaml -n watermonitor
+kubectl expose deployment user-service --type=LoadBalancer --name=user-service -n watermonitor
+
+kubectl delete services gateway -n watermonitor
+kubectl delete deployments gateway  -n watermonitor
+kubectl apply -f https://raw.githubusercontent.com/Water-Monitor/ci-cd/master/deployments.yaml -n watermonitor
+kubectl expose deployment gateway --type=LoadBalancer --name=gateway -n watermonitor
+
+#opzetten
+kubectl create namespace watermonitor
+kubectl apply -f https://raw.githubusercontent.com/Water-Monitor/ci-cd/master/deployments.yaml
+kubectl expose deployment water-usage-service --type=LoadBalancer --name=water-usage-service -n watermonitor
+kubectl expose deployment user-service --type=LoadBalancer --name=user-service -n watermonitor
+kubectl expose deployment gateway --type=LoadBalancer --name=gateway -n watermonitor
